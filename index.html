@@ -469,7 +469,7 @@ async function copyShopLink() {
   if (!S.name) { toast('Add your business name in the profile first'); return openSet(); }
   if (!S.products.length) return toast('Add at least one product or service first');
   try {
-    toast('Building & shortening link…');
+    toast('Generating shop link…');
     let url = '', pics_ = true;
     for (const [n, mx, q] of [[2, 220, 0.5], [1, 150, 0.45], [0, 0, 0]]) {
       const items = [];
@@ -478,24 +478,18 @@ async function copyShopLink() {
       pics_ = n > 0;
       if (url.length < 30000) break;
     }
-    
-    // Automatically shorten the link using free is.gd API
-    try {
-      const res = await fetch('https://is.gd/create.php?format=simple&url=' + encodeURIComponent(url));
-      if (res.ok) {
-        const shortUrl = await res.text();
-        if (shortUrl.startsWith('http')) {
-          url = shortUrl; // Use the tiny link if successful!
-        }
-      }
-    } catch (err) {
-      // Fallback to long compressed link if network/shortener fails
+
+    const shareText = `Check out my shop, *${S.name}*! 🛍️\nBrowse my catalog and place orders here:\n\n${url}`;
+
+    if (navigator.share) {
+      await navigator.share({ title: S.name, text: shareText, url: url });
+    } else {
+      await copy(url);
+      toast('Shop link copied to clipboard!');
     }
-
-    await copy(url);
-    toast('Tiny shop link copied to clipboard!');
-  } catch (e) { toast('Could not create link'); }
-
+  } catch (e) { 
+    if (e && e.name !== 'AbortError') toast('Could not create link'); 
+  }
 }
 
 // ====== STOREFRONT (preview + customer mode) ======
