@@ -467,29 +467,26 @@ function shrink(src, max, q) {
 }
 async function copyShopLink() {
   if (!S.name) { toast('Add your business name in the profile first'); return openSet(); }
-  if (!S.products.length) return toast('Add at least one product or service first');
-  try {
-    toast('Generating shop link…');
-    let url = '', pics_ = true;
-    for (const [n, mx, q] of [[2, 220, 0.5], [1, 150, 0.45], [0, 0, 0]]) {
-      const items = [];
-      for (const p of S.products) items.push([p.name, p.price, p.desc, p.specs || [], n ? await Promise.all(pics(p).slice(0, n).map(s => shrink(s, mx, q))) : [], p.kind || 'p', p.unit || 'f']);
-      url = location.href.split('#')[0] + '#shop=' + await pack(Object.assign(baseShop(), {items}));
-      pics_ = n > 0;
-      if (url.length < 30000) break;
-    }
+  
+  // Uses your clean homepage URL instead of a massive data hash
+  const baseUrl = location.href.split('#')[0];
+  const shareText = `Check out my shop, *${S.name}*! 🛍️\nBrowse my catalog, check prices, and place orders here:\n\n${baseUrl}`;
 
-    const shareText = `Check out my shop, *${S.name}*! 🛍️\nBrowse my catalog and place orders here:\n\n${url}`;
-
-    if (navigator.share) {
-      await navigator.share({ title: S.name, text: shareText, url: url });
-    } else {
-      await copy(url);
-      toast('Shop link copied to clipboard!');
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: S.name, text: shareText, url: baseUrl });
+    } catch (e) {
+      if (e && e.name !== 'AbortError') {
+        await copy(baseUrl);
+        toast('Shop link copied to clipboard!');
+      }
     }
-  } catch (e) { 
-    if (e && e.name !== 'AbortError') toast('Could not create link'); 
+  } else {
+    await copy(baseUrl);
+    toast('Shop link copied to clipboard!');
   }
+}
+
 }
 
 // ====== STOREFRONT (preview + customer mode) ======
