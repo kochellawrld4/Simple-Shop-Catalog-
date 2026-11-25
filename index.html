@@ -174,7 +174,7 @@ body:not(.artist) .ao{display:none!important}
   <div class="card p-4 mb-4 flex items-center gap-3"><div class="text-3xl">📲</div><div class="flex-1"><div class="font-bold">Tap-to-open NFC card</div><div class="text-xs text-slate-500 dark:text-slate-400">Customers tap your card or sticker and your shop opens.</div></div><button onclick="openNfc()" class="rounded-xl bg-gold text-ink font-bold text-sm px-3 py-2.5">Get NFC</button></div>
   <div class="card p-4 space-y-3 mb-4">
     <div class="flex justify-between items-center"><h3 class="font-bold">Add an item</h3><span id="limitTxt" class="text-xs font-bold text-slate-500"></span></div>
-    <div class="ao rounded-2xl p-3 flex items-center gap-3" style="background:rgba(242,183,5,.12)"><span class="text-2xl">🎧</span><div class="flex-1 text-xs"><b>Artist tools</b><div>Premium: 30-second in-app previews, visualizers and interviews.</div></div><button id="artistUp" type="button" onclick="openPro()" class="rounded-xl bg-gold text-ink font-bold text-xs px-3 py-2">Go Premium</button></div>
+    <div class="ao rounded-2xl p-3 flex items-center gap-3" style="background:rgba(242,183,5,.12)"><span class="text-2xl">🎧</span><div class="flex-1 text-xs"><b>Artist tools</b><div>Premium: 30-second in-app previews, visualizers and short videos.</div></div><button id="artistUp" type="button" onclick="openPro()" class="rounded-xl bg-gold text-ink font-bold text-xs px-3 py-2">Go Premium</button></div>
     <div class="grid grid-cols-2 gap-2"><div><label class="lbl">Type</label><select id="c_kind" class="fld" onchange="kindChg()"><option value="p">Product (for sale)</option><option value="s">Service</option><option value="r">For rent</option><option value="m">Music / link</option></select></div><div id="c_unitWrap"><label class="lbl">Pricing</label><select id="c_unit" class="fld"><option value="f">Fixed price</option><option value="h">Per hour</option><option value="d">Per day</option><option value="s">Starting from</option><option value="q">Ask for quote</option></select></div></div>
     <div><label class="lbl req" id="c_nameLbl">Name</label><input id="c_name" class="fld" placeholder="e.g. Jollof party tray"></div>
     <div id="c_priceWrap"><label class="lbl req" id="priceLbl">Price</label><input id="c_price" type="number" inputmode="decimal" min="0" step="0.01" class="fld" placeholder="0.00"></div>
@@ -464,7 +464,7 @@ body:not(.artist) .ao{display:none!important}
     <div class="flex justify-between"><h3 class="text-xl font-extrabold">Write a review</h3><button onclick="$('revModal').classList.add('hidden')" class="text-2xl leading-none px-2">×</button></div>
     <input id="cv_n" class="fld" placeholder="Your name *"><select id="cv_s" class="fld"></select>
     <textarea id="cv_t" rows="3" maxlength="140" class="fld" placeholder="How was your experience? *"></textarea>
-    <button onclick="sendReview()" class="btn bg-[#25D366] text-ink">💬 Send review on WhatsApp</button>
+    <button onclick="sendReview()" class="btn bg-[#25D366] text-ink">💬 Send direct review</button>
   </div>
 </div>
 
@@ -477,11 +477,11 @@ body:not(.artist) .ao{display:none!important}
     <div class="so"><label class="lbl req">Category</label><button type="button" id="st_cat" class="fld catbtn"></button></div>
     <div class="so"><label class="lbl req">What will you post?</label><div id="st_uses" class="flex flex-wrap gap-2"></div></div>
     <div><label class="lbl">Your location (shown on your profile)</label><div class="grid grid-cols-5 gap-2"><select id="st_city" class="fld col-span-3"></select><button type="button" onclick="useGps(true)" class="btn border-2 border-slate-300 dark:border-slate-600 text-sm col-span-2" style="min-height:48px">📍 GPS</button></div></div>
-    <div class="so"><label class="lbl">Username (Pro: shown with ✔ Verified badge)</label><input id="st_user" class="fld" placeholder="amas_fashion" autocapitalize="none"></div>
-    <div class="so"><label class="lbl">Profile links (Linktree style)</label>
+    <div class="so"><label class="lbl">Username (Pro: verified account profile)</label><input id="st_user" class="fld" placeholder="amas_fashion" autocapitalize="none"></div>
+    <div class="so"><label class="lbl">Profile links ()</label>
       <div class="grid grid-cols-5 gap-2"><select id="lk_k" class="fld col-span-2"></select><input id="lk_u" class="fld col-span-3" placeholder="Paste your link" autocapitalize="none"></div>
       <button type="button" onclick="addLink()" class="btn border-2 border-slate-300 dark:border-slate-600 text-sm mt-2">+ Add link</button><div id="lk_list" class="space-y-2 mt-2"></div></div>
-    <div class="so"><label class="lbl">Shop logo (gets a blue ✔ Verified badge on Pro)</label><input id="st_logo" type="file" accept="image/*" class="fld"><div id="st_logoPrev" class="mt-2"></div></div>
+    <div class="so"><label class="lbl">Shop logo (gets a Verified profile on Pro)</label><input id="st_logo" type="file" accept="image/*" class="fld"><div id="st_logoPrev" class="mt-2"></div></div>
     <div class="so"><label class="lbl">Currency</label><select id="st_cur" class="fld"><option value="GHS">GHS ₵</option><option value="NGN">NGN ₦</option><option value="USD">USD $</option></select></div>
     <div class="so"><label class="lbl">Payment details (shown to customers)</label><textarea id="st_pay" rows="3" class="fld" placeholder="MTN MoMo: 024 123 4567&#10;Name: Ama Mensah"></textarea></div>
     <div class="so"><label class="lbl req">WhatsApp number</label><div class="grid grid-cols-5 gap-2"><select id="st_cc" class="fld col-span-2"></select><input id="st_wa" type="tel" inputmode="tel" class="fld col-span-3" placeholder="24 123 4567"></div></div>
